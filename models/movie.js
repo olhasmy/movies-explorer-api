@@ -10,7 +10,7 @@ const movieSchema = new mongoose.Schema({
     required: true,
   },
   duration: {
-    type: "Number",
+    type: 'Number',
     required: true,
   },
   year: {
@@ -46,10 +46,6 @@ const movieSchema = new mongoose.Schema({
     },
   },
   owner: {
-    required: true,
-    type: mongoose.Schema.Types.ObjectId,
-  },
-  movieId: {
     required: true,
     type: mongoose.Schema.Types.ObjectId,
   },

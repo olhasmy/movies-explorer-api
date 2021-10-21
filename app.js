@@ -5,16 +5,19 @@ const bodyParser = require('body-parser');
 const helmet = require('helmet');
 const {
   errors,
+  celebrate,
+  Joi,
 } = require('celebrate');
 const NotFoundError = require('./errors/not-found-error');
 const {
   signup,
   signin,
+  signout,
 } = require('./controllers/users');
 const { requestLogger, errorLogger } = require('./middlewares/logger');
 const auth = require('./middlewares/auth');
 
-const { PORT = 3003 } = process.env;
+const { PORT = 3000 } = process.env;
 
 mongoose.connect('mongodb://localhost:27017/moviedb',
   async (err) => {
@@ -29,14 +32,27 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(helmet());
 
 app.listen(PORT, () => {
-  console.log(`App listening on port ${PORT}`)
-})
+  console.log(`App listening on port ${PORT}`);
+});
 
 app.use(requestLogger);
 
-app.post('/signin', signin);
+app.post('/signin', celebrate({
+  body: Joi.object().keys({
+    email: Joi.string().email().required(),
+    password: Joi.string().min(8).required(),
+  }),
+}), signin);
 
-app.post('/signup', signup);
+app.post('/signup', celebrate({
+  body: Joi.object().keys({
+    name: Joi.string().min(2).max(30),
+    email: Joi.string().email().required(),
+    password: Joi.string().min(8).required(),
+  }),
+}), signup);
+
+app.post('/signout', signout);
 
 app.use(auth);
 
@@ -61,8 +77,4 @@ app.use((err, req, res, next) => {
         : message,
     });
   next();
-});
-
-app.listen(PORT, () => {
-  console.log(`${PORT}`);
 });

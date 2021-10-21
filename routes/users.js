@@ -1,5 +1,9 @@
 const usersRouter = require('express')
   .Router();
+const {
+  celebrate,
+  Joi,
+} = require('celebrate');
 
 const {
   getCurrentUser,
@@ -8,6 +12,11 @@ const {
 
 usersRouter.get('/me', getCurrentUser);
 
-usersRouter.patch('/me', patchCurrentUser);
+usersRouter.patch('/me', celebrate({
+  body: Joi.object().keys({
+    name: Joi.string().min(2).max(30),
+    about: Joi.string().min(2).max(30),
+  }),
+}), patchCurrentUser);
 
 module.exports = usersRouter;

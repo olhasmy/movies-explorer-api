@@ -45,7 +45,7 @@ module.exports.postMovies = (req, res, next) => {
       .send(movie))
     .catch((err) => {
       if (err.name === 'ValidationError') {
-        throw new ErrBadRequest('Переданы некорректные данные при создании.');
+        throw new ErrBadRequest(`Переданы некорректные данные при создании. ${err}`);
       }
     })
     .catch(next);

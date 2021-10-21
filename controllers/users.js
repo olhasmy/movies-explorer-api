@@ -13,8 +13,8 @@ module.exports.signup = (req, res, next) => {
     password,
   } = req.body;
 
-  if (!email || !password) {
-    throw new ErrBadRequest('Введите почту и пароль.');
+  if (!email || !password || !name) {
+    throw new ErrBadRequest('Введите почту, пароль и имя!');
   }
 
   User.findOne({ email })
@@ -58,6 +58,11 @@ module.exports.signin = (req, res, next) => {
       throw new ErrBadRequest('Неправильные почта или пароль');
     })
     .catch(next);
+};
+
+module.exports.signout = (req, res) => {
+  res.clearCookie('jwt')
+    .send();
 };
 
 module.exports.getCurrentUser = (req, res, next) => {
