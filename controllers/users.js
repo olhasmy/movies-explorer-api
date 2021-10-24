@@ -62,7 +62,7 @@ module.exports.signin = (req, res, next) => {
 
 module.exports.signout = (req, res) => {
   res.clearCookie('jwt')
-    .send();
+    .send({ message: 'Вы вышли.' });
 };
 
 module.exports.getCurrentUser = (req, res, next) => {
@@ -79,7 +79,7 @@ module.exports.getCurrentUser = (req, res, next) => {
 module.exports.patchCurrentUser = (req, res, next) => {
   const {
     name,
-    about,
+    email,
   } = req.body;
   const id = req.user._id;
 
@@ -87,7 +87,7 @@ module.exports.patchCurrentUser = (req, res, next) => {
     id,
     {
       name,
-      about,
+      email,
     },
     { new: true, runValidators: true },
   )
