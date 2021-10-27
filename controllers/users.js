@@ -13,17 +13,7 @@ module.exports.signup = (req, res, next) => {
     password,
   } = req.body;
 
-  if (!email || !password || !name) {
-    throw new ErrBadRequest('Введите почту, пароль и имя!');
-  }
-
-  User.findOne({ email })
-    .then((user) => {
-      if (user) {
-        throw new ErrConflict('Такой пользователь уже существует.');
-      }
-      return bcrypt.hash(password, 10);
-    })
+  bcrypt.hash(password, 10)
     .then((hash) => User.create({
       name,
       email,
@@ -31,6 +21,12 @@ module.exports.signup = (req, res, next) => {
     }))
     .then((user) => res.status(201)
       .send({ message: `Пользователь ${user.email} успешно зарегестрирован` }))
+    .catch((err) => {
+      if (err.code === 11000) {
+        throw new ErrConflict('Такой пользователь уже существует.');
+      }
+      throw err;
+    })
     .catch(next);
 };
 
@@ -94,6 +90,9 @@ module.exports.patchCurrentUser = (req, res, next) => {
     .then((user) => {
       res.status(200)
         .send(user);
+    })
+    .catch(() => {
+      throw new ErrConflict('Такой пользователь уже существует.');
     })
     .catch(next);
 };

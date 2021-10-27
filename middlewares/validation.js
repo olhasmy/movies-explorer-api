@@ -18,7 +18,7 @@ const signinValidation = celebrate({
 
 const signupValidation = celebrate({
   body: Joi.object().keys({
-    name: Joi.string().min(2).max(30),
+    name: Joi.string().min(2).max(30).required(),
     email: Joi.string().email().required(),
     password: Joi.string().min(8).required(),
   }),
@@ -36,6 +36,7 @@ const postMoviesValidation = celebrate({
     thumbnail: Joi.string().required().custom(method),
     nameRU: Joi.string().required(),
     nameEN: Joi.string().required(),
+    movieId: Joi.number().required(),
   }),
 });
 
@@ -47,7 +48,7 @@ const deleteMovieValidation = celebrate({
 
 const patchCurrentUserValidation = celebrate({
   body: Joi.object().keys({
-    name: Joi.string().min(2).max(30),
+    name: Joi.string().min(2).max(30).required(),
     email: Joi.string().email().required(),
   }),
 });

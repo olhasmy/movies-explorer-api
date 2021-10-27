@@ -47,6 +47,7 @@ module.exports.postMovies = (req, res, next) => {
       if (err.name === 'ValidationError') {
         throw new ErrBadRequest(`Переданы некорректные данные при создании. ${err}`);
       }
+      throw err;
     })
     .catch(next);
 };
@@ -59,7 +60,7 @@ module.exports.deleteMovies = (req, res, next) => {
       if (!movie) {
         throw new ErrNotFound('Указанный _id не найден.');
       }
-      if (JSON.stringify(movie.owner) !== JSON.stringify(req.user._id)) {
+      if (String(movie.owner) !== String(req.user._id)) {
         throw new Forbidden('Нет прав');
       }
       Movie.findByIdAndRemove(id)
@@ -70,7 +71,9 @@ module.exports.deleteMovies = (req, res, next) => {
           if (err.name === 'CastError') {
             throw new ErrBadRequest('Переданы некорректные данные для удаления.');
           }
-        });
+          throw err;
+        })
+        .catch(next);
     })
     .catch(next);
 };
