@@ -16,17 +16,15 @@ const { requestLogger, errorLogger } = require('./middlewares/logger');
 const { PORT = 3008 } = process.env;
 const app = express();
 
-app.use('*', cors({
+app.use(cors({
   origin: [
     'https://movies.gonzoooo.nomoredomains.monster',
-    'http://movies.gonzoooo.nomoredomains.monster',
-    'https://api.movies.gonzoooo.nomoredomains.monster',
-    'http://api.movies.gonzoooo.nomoredomains.monster',
     'https://localhost:3000',
-    'http://localhost:3000',
   ],
   credentials: true,
 }));
+
+app.options('*', cors());
 
 app.use(limiter);
 app.use(cookieParser());
