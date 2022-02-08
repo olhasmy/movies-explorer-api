@@ -13,7 +13,6 @@ const mainErrCheck = require('./errors/mainErrCheck');
 const { requestLogger, errorLogger } = require('./middlewares/logger');
 
 const ALLOWED_CORS = [
-  'https://movies.gonzoooo.nomoredomains.monster',
   'https://api.movies.gonzoooo.nomoredomains.monster',
   'https://localhost:3000',
 ];
