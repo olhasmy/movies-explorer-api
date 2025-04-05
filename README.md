@@ -12,14 +12,14 @@
 
 ## Запустить frontend-часть:
 - Запустить "GitBash"("Terminal" на Mac OS);
-- Выполнить команду "git clone https://github.com/Gonzoooo/movies-explorer-frontend.git";
+- Выполнить команду "git clone https://github.com/olhasmy/movies-explorer-frontend.git";
 - Выполнить команду "cd movies-explorer-frontend";
 - Выполнить команду "npm install";
 - Выполнить команду "npm start"
 
 ## Запустить backend-часть:
 - Запустить "GitBash"("Terminal" на Mac OS);
-- Выполнить команду "git clone https://github.com/Gonzoooo/movies-explorer-api.git";
+- Выполнить команду "git clone https://github.com/olhasmy/movies-explorer-api.git";
 - Выполнить команду "cd movies-explorer-api";
 - Выполнить команду "npm install";
 - Выполнить команду "npm start"

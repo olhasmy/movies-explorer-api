@@ -21,10 +21,6 @@ router.use('/movies', moviesRouter);
 
 router.use('*', cors({
   origin: [
-    'https://movies.gonzoooo.nomoredomains.monster',
-    'http://movies.gonzoooo.nomoredomains.monster',
-    'https://api.movies.gonzoooo.nomoredomains.monster',
-    'http://api.movies.gonzoooo.nomoredomains.monster',
     'https://localhost:3000',
     'http://localhost:3000',
   ],
