@@ -21,7 +21,8 @@ router.use('/movies', moviesRouter);
 
 router.use('*', cors({
   origin: [
-    'https://localhost:3000',
+    'http://89.169.173.0',
+    'http://89.169.173.0:3000',
     'http://localhost:3000',
   ],
   credentials: true,
