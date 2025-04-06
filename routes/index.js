@@ -1,6 +1,5 @@
 const router = require('express')
   .Router();
-const cors = require('cors');
 const { signinValidation, signupValidation } = require('../middlewares/validation');
 const { signin, signup, signout } = require('../controllers/users');
 const usersRouter = require('./users');
@@ -9,9 +8,7 @@ const auth = require('../middlewares/auth');
 const NotFoundError = require('../errors/not-found-error');
 
 router.post('/signin', signinValidation, signin);
-
 router.post('/signup', signupValidation, signup);
-
 router.post('/signout', signout);
 
 router.use(auth);
@@ -19,14 +16,7 @@ router.use(auth);
 router.use('/users', usersRouter);
 router.use('/movies', moviesRouter);
 
-router.use('*', cors({
-  origin: [
-    'http://89.169.173.0',
-    'http://89.169.173.0:3000',
-    'http://localhost:3000',
-  ],
-  credentials: true,
-}), () => {
+router.use('*', () => {
   throw new NotFoundError('Кажется что-то полшло не так! Запрашиваемая страница не найдена');
 });
 
