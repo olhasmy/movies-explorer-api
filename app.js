@@ -19,9 +19,9 @@ const app = express();
 
 app.use('*', cors({
   origin: [
-    'http://89.169.173.0', // фронт, работающий на этом адресе
-    'http://localhost:3000', // если локально тестируешь
-    'http://89.169.173.0:3000',
+    'http://158.160.4.239',
+    'http://localhost:3000',
+    'http://158.160.4.239:3000',
   ],
   credentials: true,
 }));
